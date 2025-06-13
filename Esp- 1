@@ -1,0 +1,117 @@
+import dht
+from machine import Pin, ADC
+import time
+import network
+from umqtt.simple import MQTTClient
+import ujson
+
+# --- Configuración WiFi ---
+WIFI_SSID = "UTNG_GUEST"
+WIFI_PASSWORD = "R3d1nv1t4d0s#UT"
+
+# --- Configuración MQTT ---
+MQTT_BROKER = "10.31.5.115"
+MQTT_CLIENT_ID = "esp32_sensores"
+MQTT_TOPIC_PUB = b"esp32/sensores"
+MQTT_TOPIC_RELE1 = b"esp32/rele/1"
+MQTT_TOPIC_RELE2 = b"esp32/rele/2"
+MQTT_TOPIC_RELE3 = b"esp32/rele/3"
+
+# --- Pines ---
+DHT_PIN = Pin(4, Pin.IN, Pin.PULL_UP)
+RELAY_1 = Pin(21, Pin.OUT)
+RELAY_2 = Pin(22, Pin.OUT)
+RELAY_3 = Pin(23, Pin.OUT)
+MQ135_PIN = 34
+
+# --- Inicialización sensores ---
+sensor = dht.DHT22(DHT_PIN)
+mq135_sensor = ADC(Pin(MQ135_PIN))
+mq135_sensor.atten(ADC.ATTN_11DB)
+mq135_sensor.width(ADC.WIDTH_12BIT)
+
+# --- Relés apagados inicialmente (activo bajo) ---
+RELAY_1.value(1)
+RELAY_2.value(1)
+RELAY_3.value(1)
+
+# --- Función de callback MQTT ---
+def mqtt_callback(topic, msg):
+    print("Mensaje MQTT recibido:", topic, msg)
+
+    if topic == MQTT_TOPIC_RELE1:
+        if msg == b"ON":
+            RELAY_1.value(0)
+            print("Ventilador ENCENDIDO")
+        else:
+            RELAY_1.value(1)
+            print("Ventilador APAGADO")
+
+    elif topic == MQTT_TOPIC_RELE2:
+        if msg == b"ON":
+            RELAY_2.value(0)
+            print("Fuente de energía ENCENDIDA")
+        else:
+            RELAY_2.value(1)  
+            print("Fuente de energía APAGADA")
+
+    elif topic == MQTT_TOPIC_RELE3:
+        if msg == b"ON":
+            RELAY_3.value(0)
+            print("Lámparas ENCENDIDAS")
+        else:
+            RELAY_3.value(1)
+            print("Lámparas APAGADAS")
+
+# --- Conexión WiFi ---
+wifi = network.WLAN(network.STA_IF)
+wifi.active(True)
+wifi.connect(WIFI_SSID, WIFI_PASSWORD)
+while not wifi.isconnected():
+    print("Conectando a Wi-Fi...")
+    time.sleep(1)
+print("Conectado a Wi-Fi:", wifi.ifconfig())
+
+# --- Conexión MQTT ---
+client = MQTTClient(MQTT_CLIENT_ID, MQTT_BROKER)
+client.set_callback(mqtt_callback)
+client.connect()
+client.subscribe(MQTT_TOPIC_RELE1)
+client.subscribe(MQTT_TOPIC_RELE2)
+client.subscribe(MQTT_TOPIC_RELE3)
+print("Conectado a broker MQTT")
+
+# --- Esperar estabilización del sensor DHT22 ---
+time.sleep(2)
+
+# --- Bucle principal ---
+try:
+    while True:
+        client.check_msg()  # Revisa si hay mensajes entrantes
+
+        try:
+            sensor.measure()
+            temperatura = sensor.temperature()
+            humedad = sensor.humidity()
+            calidad_aire = mq135_sensor.read()
+
+            payload = ujson.dumps({
+                "temperatura": temperatura,
+                "humedad": humedad,
+                "calidad_aire": calidad_aire
+            })
+            client.publish(MQTT_TOPIC_PUB, payload)
+            print("Publicado:", payload)
+
+        except OSError as e:
+            print("Error al leer sensores:", e)
+
+        time.sleep(30)
+
+except KeyboardInterrupt:
+    print("Programa detenido manualmente")
+    client.disconnect()
+    RELAY_1.value(1)
+    RELAY_2.value(1)
+    RELAY_3.value(1)
+

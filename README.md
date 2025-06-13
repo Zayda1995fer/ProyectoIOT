@@ -3,7 +3,7 @@
 
 
 - **Zayda Fernanda Vargas Vargas**  
-  📌 *No. Control:* `1223458878`
+  📌 *No. Control:* `1223100423`
 
 ---
 
@@ -13,17 +13,19 @@
 ## 📋 Descripción del proyecto
 Este proyecto implementa un sistema automático de monitoreo y control de ambiente utilizando ESP32, sensores de temperatura, humedad, sensor de calidad del aire y sensor de agua.
 El sistema monitorea constantemente las condiciones ambientales y controla automáticamente los siguientes dispositivos:
-- **Ventilador**: Se activa cuando el relay #3 es encendido o cuando la calidad del aire es deficiente
-- **Humidificador**: Se activa cuando se enciednde el relay #2
-- **Sistema de calefacción (Lamparas de calor)**: Se activa cuando es encendido el relay #1
+- **Ventilador**: Se activa cuando la temperatura supera el umbral establecido o cuando la calidad del aire es deficiente
+- **Humidificador**: Se activa cuando la humedad es baja
+- **Sistema de calefacción (Lamparas de calor)**: Se activa cuando la temperatura es baja
 - **Sistema de sonido (Buzzer)**: Se activa cuando el nivel de agua es bajo
 - **Sistema de Alimentacion (Servomotor)**: Se abre cada cierto tiempo, para la alimentacion de los insectos  
 
 
 ## 💾 Códigos
 
-- 🔌 [ESP32 #1](https://github.com/Zayda1995fer/ProyectoIOT/blob/main/Esp-%201)
+- 🔌 [ESP32 #1](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/DHT22-RELAY1-RELAY2-MQ135.py)
   
+- 🔌 [ESP32 #2](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/Servo-Buzzer-SensorAgua.py)
+
 - - 🔌 [pantalla](https://github.com/Zayda1995fer/ProyectoIOT/commit/7272b8a11eab76d82cbec21ca45262e0ee61154f)
 
 
@@ -94,16 +96,14 @@ El sistema sigue un ciclo simple de operación:
 ---
 
 ## Evidencia de funcionamiento 
-<img src="https://github.com/user-attachments/assets/630d154e-5da4-4271-9d7c-189b227808ce" width="200" alt="Imagen1">
-<img src="https://github.com/user-attachments/assets/7fbbeecc-17ee-47e7-9923-9f67d928d13c" width="200" alt="Imagen2">
-<img src="https://github.com/user-attachments/assets/1b995e7e-c866-4f1c-9679-44b30029b1c0" width="200" alt="Imagen2">
+videos e imagenes (https://drive.google.com/drive/folders/10TuncYaTPcdxAZbHY9A-56HFTB6nlRz2)
+
+![Imagen de WhatsApp 2025-06-13 a las 16 02 43_d832faf3](https://github.com/user-attachments/assets/14c7bd86-919a-4605-8406-0c84a9b788a5)
+![Imagen de WhatsApp 2025-06-13 a las 16 02 44_37c1463e](https://github.com/user-attachments/assets/e8bd2a32-0f96-4279-bbf6-8b31aedb1778)
 
 
 
 
-# Evidencias de practicas de clase
-
-# [Videos](https://drive.google.com/drive/folders/1l9y0XJNzt9TzZj0Vxs_8aQH1ene6313q)
 
 
 

@@ -26,7 +26,7 @@ El sistema monitorea constantemente las condiciones ambientales y controla autom
   
 - 🔌 [ESP32 #2](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/Servo-Buzzer-SensorAgua.py)
 
-- - 🔌 [pantalla](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/Servo-Buzzer-SensorAgua.py)
+- - 🔌 [pantalla](https://github.com/Zayda1995fer/ProyectoIOT/commit/7272b8a11eab76d82cbec21ca45262e0ee61154f)
 
 
 

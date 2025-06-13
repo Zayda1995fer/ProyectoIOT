@@ -13,19 +13,17 @@
 ## 📋 Descripción del proyecto
 Este proyecto implementa un sistema automático de monitoreo y control de ambiente utilizando ESP32, sensores de temperatura, humedad, sensor de calidad del aire y sensor de agua.
 El sistema monitorea constantemente las condiciones ambientales y controla automáticamente los siguientes dispositivos:
-- **Ventilador**: Se activa cuando la temperatura supera el umbral establecido o cuando la calidad del aire es deficiente
-- **Humidificador**: Se activa cuando la humedad es baja
-- **Sistema de calefacción (Lamparas de calor)**: Se activa cuando la temperatura es baja
+- **Ventilador**: Se activa cuando el relay #3 es encendido o cuando la calidad del aire es deficiente
+- **Humidificador**: Se activa cuando se enciednde el relay #2
+- **Sistema de calefacción (Lamparas de calor)**: Se activa cuando es encendido el relay #1
 - **Sistema de sonido (Buzzer)**: Se activa cuando el nivel de agua es bajo
 - **Sistema de Alimentacion (Servomotor)**: Se abre cada cierto tiempo, para la alimentacion de los insectos  
 
 
 ## 💾 Códigos
 
-- 🔌 [ESP32 #1](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/DHT22-RELAY1-RELAY2-MQ135.py)
+- 🔌 [ESP32 #1](https://github.com/Zayda1995fer/ProyectoIOT/blob/main/Esp-%201)
   
-- 🔌 [ESP32 #2](https://github.com/Pedro-Uriel-Perez/ProyectoUniidad3AIOT/blob/main/Servo-Buzzer-SensorAgua.py)
-
 - - 🔌 [pantalla](https://github.com/Zayda1995fer/ProyectoIOT/commit/7272b8a11eab76d82cbec21ca45262e0ee61154f)
 
 
@@ -106,6 +104,8 @@ El sistema sigue un ciclo simple de operación:
 # Evidencias de practicas de clase
 
 # [Videos](https://drive.google.com/drive/folders/1l9y0XJNzt9TzZj0Vxs_8aQH1ene6313q)
+
+
 
 
 
